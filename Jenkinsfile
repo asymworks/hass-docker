@@ -6,6 +6,8 @@ pipeline {
 	stages {
 		stage('Build Container') {
 			steps {
+				sh 'pwd'
+				sh 'ls -l'
 
 				/* Pull Home Assistant Sources */
 				echo "Checking out Version ${params.ha_version} from https://github.com/home-assistant/home-assistant"
@@ -20,6 +22,7 @@ pipeline {
 							url: 'https://github.com/home-assistant/home-assistant']]]
 				
 				/* Build Home Assistant using custom Dockerfile */
+				sh 'pwd'
 				sh 'ls -l'
 			}
 		}
