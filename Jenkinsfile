@@ -21,7 +21,7 @@ pipeline {
 				
 				/* Build Home Assistant using custom Dockerfile */
 				dir('_source') {
-					withDockerContainer(args: '-v ${pwd()}::/homeassistant:ro', image: 'homeassistant/amd64-builder') {
+					withDockerContainer(args: '-v /var/run/docker.sock:/run/docker.sock:rw -v ${pwd()}::/homeassistant:ro', image: 'homeassistant/amd64-builder') {
 						sh '/builder.sh -h'
 					}
 				}
