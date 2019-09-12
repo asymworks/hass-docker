@@ -9,7 +9,7 @@ pipeline {
 				echo "Checking out Version ${params.ha_version} from https://github.com/home-assistant/home-assistant"
 				checkout changelog: false, poll: false, 
 					scm: [$class: 'GitSCM', 
-						branches: [[name: 'refs/tags/${params.ha_version}']], 
+						branches: [[name: "refs/tags/${params.ha_version}"]], 
 						doGenerateSubmoduleConfigurations: false, 
 						extensions: [], 
 						submoduleCfg: [], 
