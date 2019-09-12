@@ -21,14 +21,13 @@ pipeline {
 				
 				/* Build Home Assistant using custom Dockerfile */
 				dir('_source') {
-					HA_SRC_DIR = pwd()
 					sh """
 						docker run --rm --privileged \
 							-v ~/.docker:/root/.docker:rw \
 							-v /var/run/docker.sock:/run/docker.sock:rw \
-							-v {HA_SRC_DIR}::/homeassistant:ro \
+							-v ${pwd()}::/homeassistant:ro \
 							homeassistant/amd64-builder \
-								--homeassistant {params.ha_version} \
+								--homeassistant ${params.ha_version} \
 								--amd64 \
 								-r https://github.com/asymworks/docker \
 								-t home-assistant \
