@@ -21,10 +21,11 @@ pipeline {
 				
 				/* Build Home Assistant using custom Dockerfile */
 				dir('_source') {
-					docker.image('homeassistant/amd64-builder').withRun('-v ${pwd()}::/homeassistant:ro') { c ->
+					docker.image('homeassistant/amd64-builder').withRun("-v ${pwd()}::/homeassistant:ro") { c ->
 						sh '/builder.sh -h'
 					}
-/*
+				}
+				/*
 					sh """
 						docker run --rm --privileged \
 							-v ~/.docker:/root/.docker:rw \
@@ -37,9 +38,8 @@ pipeline {
 								-t home-assistant \
 								--docker-hub asymworks \
 								--test"""
-*/
+				*/
 
-				}
 			}
 		}
 	}
