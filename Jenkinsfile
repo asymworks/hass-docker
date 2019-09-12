@@ -21,25 +21,10 @@ pipeline {
 				
 				/* Build Home Assistant using custom Dockerfile */
 				dir('_source') {
-					docker.image('homeassistant/amd64-builder').withRun("-v ${pwd()}::/homeassistant:ro") { c ->
+					withDockerContainer(args: '-v ${pwd()}::/homeassistant:ro', image: 'homeassistant/amd64-builder') {
 						sh '/builder.sh -h'
 					}
 				}
-				/*
-					sh """
-						docker run --rm --privileged \
-							-v ~/.docker:/root/.docker:rw \
-							-v /var/run/docker.sock:/run/docker.sock:rw \
-							-v ${pwd()}::/homeassistant:ro \
-							homeassistant/amd64-builder \
-								--homeassistant ${params.ha_version} \
-								--amd64 \
-								-r https://github.com/asymworks/docker \
-								-t home-assistant \
-								--docker-hub asymworks \
-								--test"""
-				*/
-
 			}
 		}
 	}
