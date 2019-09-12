@@ -7,7 +7,15 @@ pipeline {
 		stage('Build Container') {
 			steps {
 				echo "Checking out Version ${params.ha_version} from https://github.com/home-assistant/home-assistant"
-				git branch: "refs/tags/${params.ha_version}", changelog: false, poll: false, url: 'https://github.com/home-assistant/home-assistant'
+				checkout changelog: false, poll: false, 
+					scm: [$class: 'GitSCM', 
+						branches: [[name: 'refs/tags/${params.ha_version}']], 
+						doGenerateSubmoduleConfigurations: false, 
+						extensions: [], 
+						submoduleCfg: [], 
+						userRemoteConfigs: [[
+							refspec: '+refs/tags/*:refs/remotes/origin/tags/*', 
+							url: 'https://github.com/home-assistant/home-assistant']]]
 			}
 		}
 	}
