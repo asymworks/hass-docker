@@ -6,8 +6,8 @@ pipeline {
 	stages {
 		stage('Build Container') {
 			steps {
-				echo "Checking out tags/${params.ha_version} from https://github.com/home-assistant/home-assistant"
-				git branch: "tags/${params.ha_version}", changelog: false, poll: false, url: 'https://github.com/home-assistant/home-assistant'
+				echo "Checking out Version ${params.ha_version} from https://github.com/home-assistant/home-assistant"
+				git branch: "refs/tags/${params.ha_version}", changelog: false, poll: false, url: 'https://github.com/home-assistant/home-assistant'
 			}
 		}
 	}
