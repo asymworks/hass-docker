@@ -15,7 +15,7 @@ pipeline {
 					scm: [$class: 'GitSCM', 
 						branches: [[name: "refs/tags/${params.ha_version}"]], 
 						doGenerateSubmoduleConfigurations: false, 
-						extensions: [], 
+						extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'home-assistant']],
 						submoduleCfg: [], 
 						userRemoteConfigs: [[
 							refspec: '+refs/tags/*:refs/remotes/origin/tags/*', 
