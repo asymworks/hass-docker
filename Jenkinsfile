@@ -1,7 +1,7 @@
 pipeline {
 	agent any
 	parameters {
-		string(name: 'ha_version', defaultValue: '0.98.5', description: 'Home Assistant Version to Build')
+		string(name: 'ha_version', defaultValue: '0.99.3', description: 'Home Assistant Version to Build')
 	}
 	stages {
 		stage('Build Container') {
