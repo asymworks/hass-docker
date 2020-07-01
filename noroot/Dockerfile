@@ -1,11 +1,14 @@
 ARG BUILD_FROM
 FROM ${BUILD_FROM}:4.1
 
+ENV \
+    S6_SERVICES_GRACETIME=60000
+
 VOLUME /config
 WORKDIR /usr/src
 
 ## Setup Home Assistant
-COPY homeassistant homeassistant
+COPY . homeassistant/
 
 # Patch Kodi to Always Poll
 COPY 50-always-poll-kodi.patch /tmp/50-always-poll-kodi.patch
@@ -13,7 +16,8 @@ RUN patch -p1 < /tmp/50-always-poll-kodi.patch
 RUN rm /tmp/50-always-poll-kodi.patch
 
 # Install Dependencies
-RUN pip3 install --no-cache-dir --no-index --only-binary=:all: --find-links "${WHEELS_LINKS}" \
+RUN \
+    pip3 install --no-cache-dir --no-index --only-binary=:all: --find-links "${WHEELS_LINKS}" \
         -r homeassistant/requirements_all.txt -c homeassistant/homeassistant/package_constraints.txt \
     && pip3 install --no-cache-dir --no-index --only-binary=:all: --find-links "${WHEELS_LINKS}" \
         -e ./homeassistant \
